@@ -1,5 +1,39 @@
 {% extends "network/layout.html" %}
+{% load static %}
 
 {% block body %}
-    TODO
+    <div id='home'>
+        <span>Home</span>
+    </div>
+    <div class="main">
+        <div id='my-post'>
+            <div class="avatar-section">
+                <img class="post-avatar" src="{{ user_avatar }}" alt="avatar">
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div id="form-body">
+                    <textarea id="post-body" placeholder="What's up?"></textarea>
+                    <div class="post-image-section">
+
+                    </div>
+                    <div id='post-controls'>
+                        <input type="file" id="file-input" style="display: none;">
+                        <label for="file-input">
+                            <img src="https://img.icons8.com/fluency-systems-regular/20/000000/image.png"/>
+                        </label>
+                        <input type="submit" id="submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="posts">
+        
+        </div>
+    </div>
+    
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/script.js' %}"></script>
 {% endblock %}

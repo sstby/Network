@@ -1,14 +1,66 @@
+import json
+from django.db.models import fields
+from django.db.models.base import Model
+from django.forms import widgets
+from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-
-from .models import User
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from .models import Image, Post, User
+from django import forms
 
 
 def index(request):
-    return render(request, "network/index.html")
+    user = User.objects.get(pk=request.user.id)
+    print(user.user_pic.image_url)
+    return render(request, "network/index.html", {
+        'user_avatar' : user.user_pic.image_url
+    })
+    
+
+@csrf_exempt
+@login_required
+def image_upload(request):
+    # Composing a new email must be via POST
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    img = request.FILES
+    images = []
+    for i in range(len(img)):
+        image = Image(image=img[f"myFile{i}"])
+        image.save()
+        images.append(image)
+    print(images)
+
+    return JsonResponse([im.serialize() for im in images], safe=False) 
+
+@csrf_exempt
+@login_required
+def new_post(request):
+    data = json.loads(request.body)
+    print(data)
+    author = User.objects.get(pk=request.user.id)
+    body = data.get("body", "")
+
+    post = Post(author=author, body=body)
+    post.save()
+
+    images = data.get("images", "")
+    for image in images:
+        post.images.add(Image.objects.get(pk=image['id']))
+
+    return JsonResponse(post.serialize())
+
+def user_posts(request):
+    pass
+
+def load_posts(request):
+    posts = Post.objects.all().order_by("-timestamp")
+    return JsonResponse([post.serialize() for post in posts], safe=False)
 
 
 def login_view(request):

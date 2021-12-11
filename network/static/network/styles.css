@@ -1,0 +1,129 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+@keyframes show {
+    0% {
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.uploading-post {
+    animation-name: show;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+}
+nav {
+    padding-top: 8px;
+    height: 100%;
+    width: 275px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    border-right: 1px solid #e9e9e9;
+}
+nav ul{
+    list-style: none;
+    margin-block-start: 0;
+}
+nav li {
+    margin-bottom: 8px;
+}
+.body {
+    margin-left: 275px;
+}
+
+#home {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    top: 0;
+    border-bottom: 1px solid #e9e9e9;
+    border-left: 1px solid #e9e9e9;
+    background-color: #fff;
+    height: 53px;
+    display: flex;
+    align-items: center;
+}
+
+#home span {
+    padding-left: 16px;
+}
+
+.main {
+    margin-top: 53px;
+    max-width: 600px;
+    border-right: 1px solid #e9e9e9;
+}
+#my-post{
+    width: calc(100% - 16px);
+    display: flex;
+    flex-direction: row;
+    padding-top: 12px;
+    
+}
+.avatar-section {
+    padding-left: 16px;
+    margin-right: 12px;
+}
+.post-avatar{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+#post-body {
+    max-width: calc(100% - 4px);
+    width: auto;
+    font-size: 20px;
+    font-family: sans-serif;
+    resize: none;
+    outline: none;
+    border: none;
+    overflow-y: hidden;
+}
+
+#post-controls {
+    display: flex;
+    flex-direction: row;
+    
+    padding: 12px 0;
+}
+#posts {
+    border-top: 1px solid #e9e9e9;
+}
+.post {
+    padding: 16px;
+    border-bottom: 1px solid #e9e9e9;
+}
+.post:hover{
+    background-color: #faf8f8;
+    transition: 0.5s linear;
+}
+.post .post-images {
+    border-radius: 5%;
+}
+
+.post-upvote-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+.upvote-block {
+    display: flex;
+    flex-direction: row;
+}
+
