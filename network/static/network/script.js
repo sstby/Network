@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
+    let mid = document.querySelector('.main-content');
+    mid.style.height = document.body.scrollHeight + 'px';
+
     let uploaded_files = 0;
     let formData = new FormData();
     //document.querySelector('#all-posts-link').addEventListener('click', load_posts());

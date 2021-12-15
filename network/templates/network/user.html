@@ -1,22 +1,25 @@
 {% extends "network/layout.html" %}
 {% load static %}
-{% block body %}
+{% block main %}
     <div class="main-content">
+
         <div data-user_id="{{ profile.id }}" class="header">
             <h2>{{ profile.username }}</h2>
             {% if user.username == profile.username %}
                 <a href="#">Edit profile</a>
+            {% else %}
+                <span>Follow</span>
             {% endif %}
         </div>
-        <img src="{{ profile.user_pic.image_url }}" alt="ava" class="profile-avatar">
-        <p class="username">@{{ profile.username }}</p>
-        <div class="socials">
-
+        <div class="profile_info">
+          <img src="{{ profile.user_pic.image_url }}" alt="ava" class="profile-avatar">
+          <p class="username">@{{ profile.username }}</p>
+          <div class="socials">
+          </div>
         </div>
-
         <div class="posts-nav">
-            <button class="btn btn-sm btn-primary" id="user_posts">Posts</button>
-            <button class="btn btn-sm btn-outline-primary" id="user_upvotes">Upvotes</button>
+          <button class="load-posts-btn btn-active" id="user_posts">Posts</button>
+          <button class="load-posts-btn" id="user_upvotes">Upvotes</button>
         </div>
         
     
@@ -55,7 +58,7 @@
               </div>
             </div>
             {% endfor %}
-          </div>
+        </div>
         <div class="posts user-upvotes">
             {% for post in upvoted_posts %}
             <div class="post">

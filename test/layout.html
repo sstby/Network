@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{% static 'network/styles.css' %}" rel="stylesheet" />
     <link href="{% static 'network/stare.ico' %}" rel="icon" />
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     {% block script %}
     {% endblock %}
 </head>
@@ -19,44 +18,33 @@
             <div class="aside-left">
                 <ul>
                     <li class="nav-item">
-                      <a href="{% url 'index' %}">
-                        <i class='bx bx-home-alt'></i>
-                        <span class="aside_link">Home</span>
-                      </a>
+                      <a href="#">Network</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                      <a href="{% url 'user_profile' user %}">
-                        <i class='bx bx-user' ></i>
-                        <span class="aside_link">Profile</span>
-                      </a>
+                      <a class="nav-link" href="#"
+                        ><strong>{{ user.username }}</strong></a
+                      >
                     </li>
                     {% endif %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'index' %}" id="all-posts-link"
+                        >All Posts</a
+                      >
+                    </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                      <a class="nav-link" href="#">
-                        <i class='bx bx-smile'></i>
-                        <span class="aside_link">Following</span>
-                      </a>
+                      <a class="nav-link" href="#">Following</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'logout' %}">
-                        <i class='bx bx-log-out' ></i>
-                        <span class="aside_link">Log Out</span>
-                      </a>
+                      <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'login' %}">
-                        <i class='bx bx-log-in' ></i>                       
-                        <span class="aside_link">Log In</span>
-                      </a>
+                      <a class="nav-link" href="{% url 'login' %}">Log In</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{% url 'register' %}">
-                        <i class='bx bx-user-plus' ></i>
-                        <span class="aside_link">Register</span>
-                      </a>
+                      <a class="nav-link" href="{% url 'register' %}">Register</a>
                     </li>
                     {% endif %}
                   </ul>
@@ -68,7 +56,7 @@
         <div class="main-content">
             {% block main %}
 
-            {% endblock %}
+            {$ endblock %}
         </div>
         <div class="right-side">
             <div class="aside-right">

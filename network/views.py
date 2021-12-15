@@ -60,7 +60,9 @@ def user_profile(request, name):
     user = User.objects.get(username=name)
     user_posts = Post.objects.all().filter(author = user).order_by("-timestamp")
     user_socials = Social.objects.get(user = user)
-    user_upvoted_posts = user_socials.get_upvoted_posts()
+    user_upvoted_posts = user_socials.user_upvotes.all()
+    print(f"user posts:\n{user_posts}")
+    print(f"user upvotes:\n{user_upvoted_posts}")
     return render(request, "network/user.html", {
         "profile" : user,
         "posts" : user_posts,
