@@ -2,51 +2,59 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>{% block title %}Social Network{% endblock %}</title>
-        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
-        <link href="{% static 'network/styles.css' %}" rel="stylesheet">
-        {% block script %}
-        {% endblock %}
-    </head>
-    <body>
-        <nav>
-            <div>
-            <ul>
-                <li class="nav-item">
-                    <a href="#">Network</a>
-                </li>
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
-                    </li>
-                {% endif %}
-                <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}" id="all-posts-link">All Posts</a>
-                </li>
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Following</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
-                    </li>
-                {% endif %}
-            </ul>
-            </div>
-        </nav>
-            <div class="body">
-                <div class="content">
-                    {% block body %}
-                    {% endblock %}
-                </div>
-            </div>
-    </body>
+  <head>
+    <title>{% block title %}Social Network{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="{% static 'network/styles.css' %}" rel="stylesheet" />
+    <link href="{% static 'network/stare.ico' %}" rel="icon" />
+    {% block script %}
+    {% endblock %}
+    
+  </head>
+  <body>
+    <div class="content">
+      <div class="aside left">
+        <ul>
+          <li class="nav-item">
+            <a href="#">Network</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="#"
+              ><strong>{{ user.username }}</strong></a
+            >
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}" id="all-posts-link"
+              >All Posts</a
+            >
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="#">Following</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Log In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Register</a>
+          </li>
+          {% endif %}
+        </ul>
+        <div class="nav-user-block">
+          <img id="nav-user-img" src="{{ user.user_pic.image_url }}" alt="avatar" />
+        </div>
+      </div>
+
+      <div class="aside right">
+        <h2>Right</h2>
+      </div>
+        <div class="main">{% block body %} {% endblock %}</div>
+    </div>
+  </body>
 </html>

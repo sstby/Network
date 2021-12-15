@@ -10,15 +10,16 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from .models import Image, Post, User
-from django import forms
+from .models import Image, Post, Social, User
 
 
 def index(request):
     user = User.objects.get(pk=request.user.id)
+    posts = Post.objects.all().order_by("-timestamp")
     print(user.user_pic.image_url)
     return render(request, "network/index.html", {
-        'user_avatar' : user.user_pic.image_url
+        'user_avatar' : user.user_pic.image_url,
+        'posts': posts
     })
     
 
@@ -55,13 +56,29 @@ def new_post(request):
 
     return JsonResponse(post.serialize())
 
+def user_profile(request, name):
+    user = User.objects.get(username=name)
+    user_posts = Post.objects.all().filter(author = user).order_by("-timestamp")
+    user_socials = Social.objects.get(user = user)
+    user_upvoted_posts = user_socials.get_upvoted_posts()
+    return render(request, "network/user.html", {
+        "profile" : user,
+        "posts" : user_posts,
+        "upvoted_posts" : user_upvoted_posts
+    })
+
 def user_posts(request):
+    
     pass
 
 def load_posts(request):
     posts = Post.objects.all().order_by("-timestamp")
     return JsonResponse([post.serialize() for post in posts], safe=False)
 
+def user_data(request, id):
+    socials = Social.objects.get(user=User.objects.get(pk=id))
+    print(socials.serialize())
+    return JsonResponse(socials.serialize())
 
 def login_view(request):
     if request.method == "POST":
@@ -81,7 +98,6 @@ def login_view(request):
             })
     else:
         return render(request, "network/login.html")
-
 
 def logout_view(request):
     logout(request)
