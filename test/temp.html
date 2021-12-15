@@ -1,0 +1,70 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% block body %}
+<div class="main-content">
+    <div class="header">
+      <h2>Home</h2>
+    </div>
+    <div class="post-form">
+      <div class="post-user-avatar-block">
+        <img src="{{ user_avatar }}" alt="avatar" />
+      </div>
+      <form method="post" enctype="multipart/form-data">
+        <textarea id="post-text" placeholder="What's up?"></textarea>
+        <div class="post-image-section"></div>
+        <div class="post-controls">
+          <input type="file" id="file-input" style="display: none" />
+          <div class="label-wrapper">
+            <label for="file-input">
+              <img
+                src="https://img.icons8.com/fluency-systems-regular/28/000000/image.png"
+              />
+            </label>
+          </div>
+          <input type="submit" id="submit" value="Post" />
+        </div>
+      </form>
+    </div>
+    <div class="posts">
+      {% for post in posts %}
+      <div class="post">
+        <div class="avatar-section">
+          <a href="{% url 'user_profile' post.author %}">
+            <img
+              src="{{ post.author.user_pic.image_url }}"
+              class="post-avatar"
+            />
+          </a>
+        </div>
+        <div class="post-content">
+          <div class="post-info">
+            <a href="{% url 'user_profile' post.author %}" class="post-author">{{ post.author.username }} </a>
+            <span class="post-date"> {{ post.timestamp }}</span>
+          </div>
+          <p>{{ post.body }}</p>
+          <div class="post-images">
+            {% for image in post.images.all %}
+            <div class="post-image">
+              <img src="{{ image.image_url }}" />
+            </div>
+            {% endfor %}
+          </div>
+          <div class="upvote-block">
+            <button class="post-upvote-btn">
+              <img
+                src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/20/000000/external-like-instagram-flatart-icons-outline-flatarticons.png"
+              />
+            </button>
+            <span class="post-upvotes-count">{{ post.upvotes }}</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+    
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'network/script.js' %}"></script>
+{% endblock %}

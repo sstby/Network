@@ -1,0 +1,49 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+}
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;  
+}
+.left-side {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+    
+}
+.aside-left{
+    position: fixed;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.main-content{
+    display: flex;
+    flex-direction: column;
+    background-color: burlywood;
+    flex: 2;
+    max-width: 600px;
+}
+.aside-right {
+    position: fixed;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.right-side {
+    display: flex;
+    justify-content: flex-start;
+    flex: 1;
+    
+}

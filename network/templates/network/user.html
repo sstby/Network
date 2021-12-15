@@ -1,0 +1,105 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% block main %}
+    <div class="main-content">
+
+        <div data-user_id="{{ profile.id }}" class="header">
+            <h2>{{ profile.username }}</h2>
+            {% if user.username == profile.username %}
+                <a href="#">Edit profile</a>
+            {% else %}
+                <span>Follow</span>
+            {% endif %}
+        </div>
+        <div class="profile_info">
+          <img src="{{ profile.user_pic.image_url }}" alt="ava" class="profile-avatar">
+          <p class="username">@{{ profile.username }}</p>
+          <div class="socials">
+          </div>
+        </div>
+        <div class="posts-nav">
+          <button class="load-posts-btn btn-active" id="user_posts">Posts</button>
+          <button class="load-posts-btn" id="user_upvotes">Upvotes</button>
+        </div>
+        
+    
+        <div class="posts user-posts">
+            {% for post in posts %}
+            <div class="post">
+              <div class="avatar-section">
+                <a href="{% url 'user_profile' post.author %}">
+                  <img
+                    src="{{ post.author.user_pic.image_url }}"
+                    class="post-avatar"
+                  />
+                </a>
+              </div>
+              <div class="post-content">
+                <div class="post-info">
+                  <a href="{% url 'user_profile' post.author %}" class="post-author">{{ post.author.username }} </a>
+                  <span class="post-date"> {{ post.timestamp }}</span>
+                </div>
+                <p>{{ post.body }}</p>
+                <div class="post-images">
+                  {% for image in post.images.all %}
+                  <div class="post-image">
+                    <img src="{{ image.image_url }}" />
+                  </div>
+                  {% endfor %}
+                </div>
+                <div class="upvote-block">
+                  <button class="post-upvote-btn">
+                    <img
+                      src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/20/000000/external-like-instagram-flatart-icons-outline-flatarticons.png"
+                    />
+                  </button>
+                  <span class="post-upvotes-count">{{ post.upvotes }}</span>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="posts user-upvotes">
+            {% for post in upvoted_posts %}
+            <div class="post">
+              <div class="avatar-section">
+                <a href="{% url 'user_profile' post.author %}">
+                  <img
+                    src="{{ post.author.user_pic.image_url }}"
+                    class="post-avatar"
+                  />
+                </a>
+              </div>
+              <div class="post-content">
+                <div class="post-info">
+                  <a href="{% url 'user_profile' post.author %}" class="post-author">{{ post.author.username }} </a>
+                  <span class="post-date"> {{ post.timestamp }}</span>
+                </div>
+                <p>{{ post.body }}</p>
+                <div class="post-images">
+                  {% for image in post.images.all %}
+                  <div class="post-image">
+                    <img src="{{ image.image_url }}" />
+                  </div>
+                  {% endfor %}
+                </div>
+                <div class="upvote-block">
+                  <button class="post-upvote-btn">
+                    <img
+                      src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/20/000000/external-like-instagram-flatart-icons-outline-flatarticons.png"
+                    />
+                  </button>
+                  <span class="post-upvotes-count">{{ post.upvotes }}</span>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'network/user.js' %}"></script>
+{% endblock %}
